@@ -20,9 +20,9 @@ recursion limit for each size and then graphs the recursion limit vs array size
 and a second graph showing minimum sort time and array size.
 
 Here is a typical outcome of the first program. It is for an array size of 40K.
-![40K array](40KArray.png)
+![40K array](./resources/40KArray.png)
 The last lines of the output are here:
-![40K array output](40KArrayData.png)
+![40K array output](./resources/40KArrayData.png)
 Here is an array with size 1,000,000. I evaluated 300 recursion limits as it 
 is clear where the minimum is.
-![1Marray](1Marray.png)
+![1Marray](./resources/1Marray.png)
