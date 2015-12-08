@@ -23,13 +23,13 @@ Here is a typical outcome of the first program. It is for an array size of
 40K.  
   
 ![40K array](./Resources/40KArray.png)  
-\s\s
-The last lines of the output are here:\s\s
-\s\s
-![40K array output](./Resources/40KArrayData.png)\s\s
-\s\s
+  
+The last lines of the output are here:  
+  
+![40K array output](./Resources/40KArrayData.png)  
+  
 Here is an array with size 1,000,000. I evaluated 300 recursion limits as it 
-is clear where the minimum is.\s\s
-\s\s
-![1Marray](./Resources/1Marray.png)\s\s
+is clear where the minimum is.  
+  
+![1Marray](./Resources/1Marray.png)  
 
