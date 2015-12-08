@@ -19,6 +19,8 @@ The second program goes through increasing sizes of arrays and determines the
 recursion limit for each size and then graphs the recursion limit vs array size
 and a second graph showing minimum sort time and array size.
 
+I used a library called JFreeChart to graph the results.
+
 Here is a typical outcome of the first program. It is for an array size of
 40K.  
   
