@@ -170,7 +170,7 @@ public class FHsort
    
    protected static int QS_RECURSION_LIMIT = 15;
    
-   public static boolean setRecursionLimit(int newLim)
+   public  boolean setRecursionLimit(int newLim)
    {
       if (newLim < 2 || newLim > 1000)
          return false;

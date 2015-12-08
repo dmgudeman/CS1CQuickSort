@@ -1,5 +1,6 @@
 package project06_davidg;
 import java.awt.BorderLayout;
+import java.awt.Point;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,10 +20,14 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  */
 public class XYLineChartExample extends JFrame {
+   public Point[] pointsMax = {};
    public double[] x = {};
    public double[] y = {};
    public static String arraySize = "";
    public String truncatedSize = "";
+   
+   
+   // Constructor for double arrays
    public XYLineChartExample(double[] x, double[] y, 
           Integer arraysize) {
         super("For Array size = " + arraySize.toString());
@@ -38,6 +43,22 @@ public class XYLineChartExample extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
+   
+   // Constructor for Point array
+   public XYLineChartExample(Point[] points, 
+         Integer arraysize) {
+       super("For Array size = " + arraySize.toString());
+     
+       this.pointsMax = points;
+       this.arraySize = Integer.toString(arraysize);
+
+       JPanel chartPanel = createChartPanel();
+       add(chartPanel, BorderLayout.CENTER);
+
+       setSize(640, 480);
+       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       setLocationRelativeTo(null);
+   }
  
     private JPanel createChartPanel() {
        String chartTitle = "Array size = " + this.arraySize ;
@@ -45,6 +66,18 @@ public class XYLineChartExample extends JFrame {
        String yAxisLabel = "Time to Complete Sort (nanoSeconds/10,000)";
     
        XYDataset dataset = createDataset();
+    
+       JFreeChart chart = ChartFactory.createXYLineChart(chartTitle,
+               xAxisLabel, yAxisLabel, dataset);
+    
+       return new ChartPanel(chart);
+   }
+    private JPanel createChartPanelP() {
+       String chartTitle = "Array size = " + this.arraySize ;
+       String xAxisLabel = "Recursion Limit " ;
+       String yAxisLabel = "Time to Complete Sort (nanoSeconds/10,000)";
+    
+       XYDataset dataset = createDatasetP();
     
        JFreeChart chart = ChartFactory.createXYLineChart(chartTitle,
                xAxisLabel, yAxisLabel, dataset);
@@ -64,9 +97,7 @@ public class XYLineChartExample extends JFrame {
        {
           series1.add(x[i], y[i]);
        }
-       
-       
-//        
+             
 //       series1.add(10000.0, 20000.0);
 //       series1.add(20000.0, 30000.0);
 //       series1.add(30000.0, 20000.5);
@@ -92,7 +123,24 @@ public class XYLineChartExample extends JFrame {
        return dataset;
    }
  
-   
+    private XYDataset createDatasetP() {
+       
+       XYSeriesCollection datasetP = new XYSeriesCollection();
+       XYSeries series1P = new XYSeries("Recursion Limit");
+//       XYSeries series2 = new XYSeries("Object 2");
+//       XYSeries series3 = new XYSeries("Object 3");
+      
+       for (int i = 0; i < pointsMax.length; i++)
+       {
+          series1P.add(pointsMax[i].getX(), pointsMax[i].getY());
+       } 
+        
+    datasetP.addSeries(series1P);
+//    dataset.addSeries(series2P);
+//    dataset.addSeries(series3P);
+ 
+    return datasetP;
+}
     
     
 }
