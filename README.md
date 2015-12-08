@@ -20,9 +20,9 @@ recursion limit for each size and then graphs the recursion limit vs array size
 and a second graph showing minimum sort time and array size.
 
 Here is a typical outcome of the first program. It is for an array size of
-40K.\s\s
-\s\s
-![40K array](./Resources/40KArray.png)\s\s
+40K.  
+  
+![40K array](./Resources/40KArray.png)  
 \s\s
 The last lines of the output are here:\s\s
 \s\s
