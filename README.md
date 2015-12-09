@@ -37,22 +37,22 @@ code and this time I understood it much better.
 Here is a typical outcome of the first program. It is for an array size of
 40K.  
   
-![40K array](./Resources/40KArray.png)  
+![40K array](./resources/40KArray.png)  
   
 The last lines of the output are here:  
   
-![40K array output](./Resources/40KArrayData.png)  
+![40K array output](./resources/40KArrayData.png)  
   
 Here is an array with size 1,000,000. I evaluated 300 recursion limits as it 
 is clear where the minimum is.  
   
-![1Marray](./Resources/1Marray.png)  
+![1Marray](./resources/1Marray.png)  
 
 Here is the output of the second program:  
   
-![Summary](./Resources/Summary.png)
+![Summary](./resources/Summary.png)
 
 Sample of the data and the completion of the run:  
   
-![Summary Data](./Resources/SummaryData.png)
+![Summary Data](./resources/SummaryData.png)
 
