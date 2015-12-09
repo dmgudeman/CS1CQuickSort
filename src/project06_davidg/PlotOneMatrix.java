@@ -6,59 +6,50 @@ import javax.swing.SwingUtilities;
 
 import cs1c.TimeConverter;
 
-public class Driver
+/**
+ * This class allows you to set three class variables: the size of the 
+ * array, how many times you cycle through it at diffenent recursion limits
+ * and the interval at which to advance the recursion limit that you are 
+ * evaluating. 
+ * @author davidgudeman
+ *
+ */
+public class PlotOneMatrix
 {
 
-   static int arraySize;
-   static Integer[] bigArray;
+   static int arraySize;  // array size to evaluate
+   static Integer[] bigArray; // will hold random integers to be sorted
    static Point[] minimumsP;
    static Point[] maximumsP;
    static Point[] answersP;
 
-   static int TIMES_AROUND_BIG_LOOP = 4;
-   static int LIM_ITR_TIMES = 2000;
-   static int LIM_ITR_INTERVAL = 2;
+   static int LIM_ITR_TIMES = 300; // maximum value of the recursionlimit to be tested
+   static int LIM_ITR_INTERVAL = 2; //interval between rec Limits to be tested
 
-   static final boolean flagInnerLoop = false;
-//   static final boolean flagOuterLoop = false;
+   static final boolean flagInnerLoop = true; // debuggin flag
+
    static int al;
 
    /**
     * Takes an array size as an int and returns an array of random integers that
     * range in magnitude of 0 to array size/5
-    * 
     * @param arraySize
-    * @return
+    * @return array of Integers
     */
    public static Integer[] makeArray(int arraySize)
    {
-      Integer[] tempArray = new Integer[arraySize];
+      Integer[] integerArray = new Integer[arraySize];
       for (int i = 0; i < arraySize; i++)
       {
-         tempArray[i] = (int) (Math.random() * arraySize / 5);
+         integerArray[i] = (int) (Math.random() * arraySize / 5);
       }
-      return tempArray;
+      return integerArray;
    }
 
    public static void main(String[] args)
    {
       arraySize = 40000;
-      // if (flagOuterLoop)
-      // {
-      // minimumsP = new Point[TIMES_AROUND_BIG_LOOP];
-      // maximumsP = new Point[TIMES_AROUND_BIG_LOOP];
-      // for (int p = 0; p < TIMES_AROUND_BIG_LOOP; p++)
-      // {
-      // minimumsP[p] = new Point();
-      // maximumsP[p] = new Point();
-      // }
-      //
-      // for (al = 0; al < TIMES_AROUND_BIG_LOOP; al++)
-      // {
-      // arraySize = 20000 * (al + 1);
-      // }
-      // }
-      // set up timing
+      
       long startTime, estimatedTime;
 
       // object from helper classes
@@ -81,7 +72,7 @@ public class Driver
       bigArray = makeArray(arraySize);
 
       // step through the array at different recursion limits up to value of
-      // 300
+      // ITER_TIMES 
       for (int i = 2, j = 0; i < LIM_ITR_TIMES; i = i + LIM_ITR_INTERVAL, j++)
       {
          Point point = new Point();
@@ -96,21 +87,16 @@ public class Driver
          estimatedTime = System.nanoTime() - startTime;
 
          ansX = (double) i;
-
          ansY = (double) estimatedTime / 10000;
 
          if (flagInnerLoop)
          {
-            // System.out.println("answersX " + ansX);
-            // System.out.println("answersY " + ansY);
-            // report algorithm time
+           
             System.out.println("For RecursionLimit " + i + " "
                   + TimeConverter.convertTimeToString(estimatedTime));
          }
          point.setLocation(ansX, ansY);
-         // System.out.println(point.x + "     " + point.y);
-         // System.out.println(point.getX() + "   " + point.getY());
-
+        
          answersP[j] = point;
          if (i == 2)
          {
@@ -128,7 +114,7 @@ public class Driver
       } // end inner loop (i, j)
 
       /**
-       * Anonymous class that creates a XYLineChartExample
+       * Anonymous class calls a new thread that creates a XYLineChartExample 
        */
          SwingUtilities.invokeLater(new Runnable()
          {
