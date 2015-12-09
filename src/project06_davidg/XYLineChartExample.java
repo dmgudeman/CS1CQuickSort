@@ -124,9 +124,9 @@ public class XYLineChartExample extends JFrame {
       
        for (int i = 0; i < pointsMax.length; i++)
        {
-          series1.add(pointsMax[i].getX()*20, pointsMax[i].getY()/100000);
-          series2.add(pointsMin[i].getX()*20, pointsMin[i].getY()/100000);
-          series3.add(recLimits[i].getX()*20, recLimits[i].getY());
+          series1.add(pointsMax[i].getX()*0.5, pointsMax[i].getY()/100000);
+          series2.add(pointsMin[i].getX()*0.5, pointsMin[i].getY()/100000);
+          series3.add(recLimits[i].getX()*0.5, recLimits[i].getY());
           System.out.println("pointsMax" + pointsMax[i].getX()*20 + " "+ pointsMax[i].getY()/100000 );
           System.out.println("pointsMin" + pointsMin[i].getX()*20 + " "+ pointsMin[i].getY()/100000 );
           System.out.println("recLimits" + recLimits[i].getX()*20 + " "+ recLimits[i].getY() );

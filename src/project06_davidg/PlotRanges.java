@@ -21,8 +21,8 @@ public class PlotRanges
    static Point[] maximumsP;
    static Point[] answersP;
    
-   static int MAX_ARRAYLENGTH = 1000000;
-   static int INCREMENT_ARRAYLENGTH = 20000;
+   static int MAX_ARRAYLENGTH = 50000;
+   static int INCREMENT_ARRAYLENGTH = 500;
 
    static int TIMES_AROUND_BIG_LOOP = MAX_ARRAYLENGTH/INCREMENT_ARRAYLENGTH;
    
@@ -171,7 +171,7 @@ public class PlotRanges
       minArrayP[lengthTally - 1 ] = minimumP;
       recLimitArrayP[lengthTally -1 ] = iterationP;
       System.out.println("maximum ns/M: " +     numberFormat.format(maximumD/1000000)
-            + "; iterOfMax: " + iterOfMax + "; arraySize: " + lengthTally*20000);
+            + "; iterOfMax: " + iterOfMax + "; arraySize: " + lengthTally);
       System.out.println("maxArrayP.length " + maxArrayP.length);
       
       } // end of outer loop

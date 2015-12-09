@@ -55,6 +55,12 @@ Here is the output of the second program:
 Sample of the data and the completion of the run:  
   
 ![Summary Data](./resources/SummaryData.png)
-
-
-add some changes here
+  
+I did an analysis of arrays from 500 to 50,000 in size.  The green line shows
+that at arrays up to about 5000 the maximum sort time is reached on about
+iteration 220. At larger arrays the max time is reached on iteration 2 
+consistently. I would conclude from this that using a secondary sort method
+such as insertion sort is even more critical when the array sizes are less than
+5000.
+  
+![smallArrayAnalysis](./resources/smallArrayAnalysis.png)
