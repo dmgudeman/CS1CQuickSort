@@ -20,21 +20,23 @@ import org.jfree.data.xy.XYSeriesCollection;
  *
  */
 public class XYLineChartExample extends JFrame {
-   public Point[] pointsMax = {};
+   public Point[] pointsMax;
+   public Point[] pointsMin;
+   public Point[] recLimits;
    public double[] x = {};
    public double[] y = {};
-   public static String arraySize = "";
+   public static String stringForTitle = "";
    public String truncatedSize = "";
    
    
    // Constructor for double arrays
    public XYLineChartExample(double[] x, double[] y, 
           Integer arraysize) {
-        super("For Array size = " + arraySize.toString());
+        super("For Array size = " + stringForTitle.toString());
       
         this.x = x;
         this.y = y;
-        this.arraySize = Integer.toString(arraysize);
+        this.stringForTitle = Integer.toString(arraysize);
  
         JPanel chartPanel = createChartPanel();
         add(chartPanel, BorderLayout.CENTER);
@@ -45,14 +47,18 @@ public class XYLineChartExample extends JFrame {
     }
    
    // Constructor for Point array
-   public XYLineChartExample(Point[] points, 
+   public XYLineChartExample(Point[] maxArray, Point[] minArray, Point[] recLimit,
          Integer arraysize) {
-       super("For Array size = " + arraySize.toString());
+       super("For Array size = " + stringForTitle.toString());
      
-       this.pointsMax = points;
-       this.arraySize = Integer.toString(arraysize);
+       this.pointsMax = maxArray.clone();     
+       this.pointsMin = minArray.clone();
+       this.recLimits = recLimit.clone();
+       
+       
+       this.stringForTitle = Integer.toString(arraysize);
 
-       JPanel chartPanel = createChartPanel();
+       JPanel chartPanel = createChartPanelP();
        add(chartPanel, BorderLayout.CENTER);
 
        setSize(640, 480);
@@ -61,9 +67,9 @@ public class XYLineChartExample extends JFrame {
    }
  
     private JPanel createChartPanel() {
-       String chartTitle = "Array size = " + this.arraySize ;
+       String chartTitle = "Array size = " + this.stringForTitle ;
        String xAxisLabel = "Recursion Limit " ;
-       String yAxisLabel = "Time to Complete Sort (nanoSeconds/10,000)";
+       String yAxisLabel = "BLAH";
     
        XYDataset dataset = createDataset();
     
@@ -73,9 +79,9 @@ public class XYLineChartExample extends JFrame {
        return new ChartPanel(chart);
    }
     private JPanel createChartPanelP() {
-       String chartTitle = "Array size = " + this.arraySize ;
-       String xAxisLabel = "Recursion Limit " ;
-       String yAxisLabel = "Time to Complete Sort (nanoSeconds/10,000)";
+       String chartTitle = "Array Size vs Max, Min and Rec Limit " ;
+       String xAxisLabel = "Array Size (x1000) " ;
+       String yAxisLabel = "Max, Min of sort (nanoSecs/100K); Rec Limit of Max";
     
        XYDataset dataset = createDatasetP();
     
@@ -97,25 +103,7 @@ public class XYLineChartExample extends JFrame {
        {
           series1.add(x[i], y[i]);
        }
-             
-//       series1.add(10000.0, 20000.0);
-//       series1.add(20000.0, 30000.0);
-//       series1.add(30000.0, 20000.5);
-//       series1.add(30000.5, 20000.8);
-//       series1.add(40000.2, 60000.0);
-//    
-//       series2.add(2.0, 1.0);
-//       series2.add(2.5, 2.4);
-//       series2.add(3.2, 1.2);
-//       series2.add(3.9, 2.8);
-//       series2.add(4.6, 3.0);
-//    
-//       series3.add(1.2, 4.0);
-//       series3.add(2.5, 4.4);
-//       series3.add(3.8, 4.2);
-//       series3.add(4.3, 3.8);
-//       series3.add(4.5, 4.0);
-    
+                
        dataset.addSeries(series1);
 //       dataset.addSeries(series2);
 //       dataset.addSeries(series3);
@@ -123,23 +111,32 @@ public class XYLineChartExample extends JFrame {
        return dataset;
    }
  
+    /**
+     * 
+     * @return
+     */
     private XYDataset createDatasetP() {
        
-       XYSeriesCollection datasetP = new XYSeriesCollection();
-       XYSeries series1P = new XYSeries("Recursion Limit");
-//       XYSeries series2 = new XYSeries("Object 2");
-//       XYSeries series3 = new XYSeries("Object 3");
+       XYSeriesCollection dataset = new XYSeriesCollection();
+       XYSeries series1 = new XYSeries("max sort time");
+       XYSeries series2 = new XYSeries("min sort time");
+       XYSeries series3 = new XYSeries("rec Limit");
       
        for (int i = 0; i < pointsMax.length; i++)
        {
-          series1P.add(pointsMax[i].getX(), pointsMax[i].getY());
+          series1.add(pointsMax[i].getX()*20, pointsMax[i].getY()/100000);
+          series2.add(pointsMin[i].getX()*20, pointsMin[i].getY()/100000);
+          series3.add(recLimits[i].getX()*20, recLimits[i].getY());
+          System.out.println("pointsMax" + pointsMax[i].getX()*20 + " "+ pointsMax[i].getY()/100000 );
+          System.out.println("pointsMin" + pointsMin[i].getX()*20 + " "+ pointsMin[i].getY()/100000 );
+          System.out.println("recLimits" + recLimits[i].getX()*20 + " "+ recLimits[i].getY() );
        } 
         
-    datasetP.addSeries(series1P);
-//    dataset.addSeries(series2P);
-//    dataset.addSeries(series3P);
+    dataset.addSeries(series1);
+    dataset.addSeries(series2);
+    dataset.addSeries(series3);
  
-    return datasetP;
+    return dataset;
 }
     
     

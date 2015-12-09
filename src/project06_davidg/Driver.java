@@ -153,16 +153,16 @@ public class Driver
          for (int y = 0; y < maximumsP.length; y++)
             System.out.println(maximumsP[y].toString());
       
-      System.out.println();
-      SwingUtilities.invokeLater(new Runnable()
-      {
-         @Override
-         public void run()
-         {
-            new XYLineChartExample(maximumsP, maximumsP.length)
-                  .setVisible(true);
-         }
-      });
+//      System.out.println();
+//      SwingUtilities.invokeLater(new Runnable()
+//      {
+//         @Override
+//         public void run()
+//         {
+//            new XYLineChartExample(maximumsP, maximumsP.length)
+//                  .setVisible(true);
+//         }
+//      });
       }// end outer (al) loop
 
    }// end main

@@ -2,6 +2,8 @@ package project06_davidg;
 
 import java.awt.Point;
 import java.text.DecimalFormat;
+
+import javax.swing.SwingUtilities;
 /**
  * The purpose of this class is to produce two graphs. The first graph plots the 
  * the maximum time to sort an array at incremented recursion limits up to 300. 
@@ -55,7 +57,7 @@ public class PlotRanges
     * @param arrayLength
     * @returns array of points
     */
-   public static Point[] makeMaxArray(int arrayLength)
+   public static Point[] initPointArray(int arrayLength)
    {
       Point[] maximumsP = new Point[TIMES_AROUND_BIG_LOOP];
       for (int p = 0; p < TIMES_AROUND_BIG_LOOP; p++)
@@ -103,8 +105,9 @@ public class PlotRanges
 //      // double to catch a single answer
       double ansX = 0.0;
       double ansY = 0.0;
-      Point[] minArrayP = makeMaxArray(TIMES_AROUND_BIG_LOOP);
-      Point[] recLimitArrayP = makeRecLimitArray(TIMES_AROUND_BIG_LOOP);
+      Point[] maxArrayP = initPointArray(TIMES_AROUND_BIG_LOOP);
+      Point[] minArrayP = initPointArray(TIMES_AROUND_BIG_LOOP);
+      Point[] recLimitArrayP = initPointArray(TIMES_AROUND_BIG_LOOP);
  
      
 
@@ -120,9 +123,11 @@ public class PlotRanges
          
         
          double[] recLimitD = new double[arrayLength];
+         double[] maximumsD = new double[arrayLength];
          double[] minimumsD = new double[arrayLength];
-         double minimumD = 1000000000000.0;
-         double minimumDavg = 10000000000000.0;
+         double maximumD = 0.0;
+         double minimumD = 1.0E18; // a ridiculously large number to initialize
+        
          int iterOfMax = 0;
             
       
@@ -141,113 +146,46 @@ public class PlotRanges
          
          // stop and calculate elapsed time
          estimatedTime = System.nanoTime() - startTime;
-
          
-         if (estimatedTime < minimumD)
-         {
-            
-            if (i > 20)
-            {
-               double sum = estimatedTime;
-              
-               for(int b = 10; b < 10 ; b--) 
-               {
-                  sum = sum + minimumsD[b];
-               }
-               minimumDavg = sum/10;
-            } else {
-               minimumDavg = estimatedTime;
-            }
-            minimumD = minimumDavg;
-            iterOfMax = i; 
-            
+         if (estimatedTime > maximumD)
+         { 
+            maximumD = estimatedTime;
+            iterOfMax = i;            
          }
-          
-         
-      } // end of inner i loop
-      
-      
-      
-      
-      Point iterationP = new Point (lengthTally, iterOfMax);
+         if (estimatedTime < minimumD)
+         { 
+            minimumD = estimatedTime;
+                       
+         }
+                 
+      } // end of inner i loop 
+      // this is to measure at what iteration the max is reached
+      Point iterationP = new Point ();
+      iterationP.setLocation(lengthTally, iterOfMax);
+      Point maximumP = new Point();      
+      maximumP.setLocation(lengthTally, maximumD);
       Point minimumP = new Point();
       minimumP.setLocation(lengthTally, minimumD);
-      System.out.println("minimum ns/M: " +     numberFormat.format(minimumD/1000000)
-            + "; iterOfMin: " + iterOfMax + "; arraySize: " + lengthTally*20000);
+      
+      maxArrayP[lengthTally - 1 ] = maximumP;
+      minArrayP[lengthTally - 1 ] = minimumP;
+      recLimitArrayP[lengthTally -1 ] = iterationP;
+      System.out.println("maximum ns/M: " +     numberFormat.format(maximumD/1000000)
+            + "; iterOfMax: " + iterOfMax + "; arraySize: " + lengthTally*20000);
+      System.out.println("maxArrayP.length " + maxArrayP.length);
       
       } // end of outer loop
-//         if (flagInnerLoop)
-//         {
-////            System.out.println("answersX " + ansX);
-////            System.out.println("answersY " + ansY);
-//            // report algorithm time
-//            System.out.println("For RecursionLimit " + i + " "
-//                  + TimeConverter.convertTimeToString(estimatedTime));
-//         }
-//         point.setLocation(ansX, ansY);
-////         System.out.println(point.x + "     " + point.y);
-////         System.out.println(point.getX() + "   " + point.getY());
-//
-//         answersP[j] = point;
-//         if (i == 2)
-//         {
-//            maxPoint.setLocation(ansX, ansY);
-//            minPoint.setLocation(ansX, ansY);
-//
-//         }
-//         if (maxPoint.getY() < ansY)
-//            maxPoint.setLocation(ansX, ansY);
-//         if (minPoint.getY() > ansY)
-//            minPoint.setLocation(ansX, ansY);
-//         answersX[j] = ansX;
-//         answersY[j] = ansY;
-//
-//      } // end inner loop (i, j)
-//
-////      System.out.println(answersX.length);
-//      if (flagInnerLoop)
-//      {
-//         System.out.println();
-//         SwingUtilities.invokeLater(new Runnable()
-//         {
-//            @Override
-//            public void run()
-//            {
-//               new XYLineChartExample(answersX, answersY, arrayLength)
-//                     .setVisible(true);
-//            }
-//         });
-//         System.out.println("max = " + maxPoint.getY() +" at recursion limit " + maxPoint.getX());
-//         System.out.println("min = " + minPoint.getY() +" at recursion limit " + minPoint.getX());
-//      }
-//
-//      if (flagOuterLoop)
-//      {
-//         System.out.println("minPoint = " + minPoint.toString());
-//         System.out.println("maxPoint = " + maxPoint.toString());
-//
-//         System.out.println("al" + al);
-//         minimumsP[al].setLocation(minPoint.getX(), minPoint.getY());
-//         System.out.println(minimumsP[al].getX() + "  " + minimumsP[al].getY());
-//         maximumsP[al].setLocation(maxPoint.getX(), maxPoint.getY());
-//         System.out.println();
-//
-//         System.out.println(maximumsP.length);
-//         for (int y = 0; y < maximumsP.length; y++)
-//            System.out.println(maximumsP[y].toString());
-//      
-//      System.out.println();
-//      SwingUtilities.invokeLater(new Runnable()
-//      {
-//         @Override
-//         public void run()
-//         {
-//            new XYLineChartExample(maximumsP, maximumsP.length)
-//                  .setVisible(true);
-//         }
-//      });
-//      }// end outer (al) loop
-
+      System.out.println("maxArrayP.length " + maxArrayP.length);
+      SwingUtilities.invokeLater(new Runnable()
+      {
+         @Override
+         public void run()
+         {
+            new XYLineChartExample(maxArrayP, minArrayP,  recLimitArrayP, 
+                  maxArrayP.length)
+                  .setVisible(true);
+         }
+      });
    }// end main
 }
 
